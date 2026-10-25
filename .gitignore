@@ -1,0 +1,27 @@
+# Next.js
+/.next/
+/out/
+
+# 依存パッケージ
+/node_modules/
+
+# 環境変数（雛形の *.example は追跡する。Vercel CLIが .env* を追記することがあるので注意）
+.env
+.env*.local
+
+# ログ・OS
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+.vercel
+
+# ビルド前に自動生成される(scripts/generate-seo-files.js)
+/public/robots.txt
+/public/sitemap.xml
+
+# 画像の変換元（scripts/optimize-images.py が退避させる。書き出し後のWebPのみ追跡する）
+/image-src/
+
+# 開発サーバーのログ
+dev.log
