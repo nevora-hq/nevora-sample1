@@ -78,22 +78,6 @@ export default function Home({ jsonLd }) {
           </div>
         </section>
 
-        {/* ---- リール動画への画像リンク（お飲み物と店舗情報のあいだ） ---- */}
-        <section className="home-stripe home-reel">
-          <div className="container">
-            <a href={REEL_LINK.href} target="_blank" rel="noopener noreferrer" className="reel-link">
-              <img
-                src={REEL_LINK.image}
-                width={REEL_LINK.width}
-                height={REEL_LINK.height}
-                alt={REEL_LINK.alt}
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-          </div>
-        </section>
-
         {/* ---- 店舗情報（定休日の例外を強調・Googleマップ） ---- */}
         <section className="home-stripe" id="access">
           <div className="container container--wide">
@@ -108,6 +92,18 @@ export default function Home({ jsonLd }) {
             <h2 className="section-title">Instagram</h2>
             <p className="section-lead">実際のコースのお料理は、当店の公式Instagramにて多数ご紹介しております。</p>
             <InstagramEmbed />
+            <div className="home-reel">
+              <a href={REEL_LINK.href} target="_blank" rel="noopener noreferrer" className="reel-link">
+                <img
+                  src={REEL_LINK.image}
+                  width={REEL_LINK.width}
+                  height={REEL_LINK.height}
+                  alt={REEL_LINK.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+            </div>
             <p className="instagram-link">
               <a href={REEL_LINK.href} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
                 {REEL_LINK.caption}

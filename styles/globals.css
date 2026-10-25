@@ -582,6 +582,7 @@ main {
 
 /* 1つおきに淡い色を敷いてセクションの区切りを作る */
 .home-reel {
+  margin: 24px 0 0;
   text-align: center;
 }
 
