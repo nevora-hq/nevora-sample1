@@ -581,6 +581,35 @@ main {
 }
 
 /* 1つおきに淡い色を敷いてセクションの区切りを作る */
+.home-reel {
+  text-align: center;
+}
+
+.reel-link {
+  display: inline-block;
+  max-width: 280px;
+  width: 100%;
+  line-height: 0;
+  transition: opacity 0.2s;
+}
+
+.reel-link:hover {
+  opacity: 0.85;
+}
+
+.reel-caption {
+  display: block;
+  margin-top: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  color: var(--color-text-faint);
+}
+
+.reel-link img {
+  width: 100%;
+  height: auto;
+}
+
 .home-stripe--tint {
   /* 木目の背景を見せるため塗らない。区切りは上下の細い線で付ける */
   border-top: 1px solid var(--color-primary-light);

@@ -10,7 +10,7 @@ import InstagramEmbed from "../components/InstagramEmbed";
 import FaqAccordion from "../components/FaqAccordion";
 import Cta from "../components/Cta";
 import { buildRestaurantJsonLd, buildFaqJsonLd } from "../lib/structuredData";
-import { SITE, CONCEPT, MENU_GUIDE, MENU_NOTE, IMAGES, FAQS } from "../lib/siteConfig";
+import { SITE, REEL_LINK, CONCEPT, MENU_GUIDE, MENU_NOTE, IMAGES, FAQS } from "../lib/siteConfig";
 
 export async function getStaticProps() {
   return { props: { jsonLd: [buildRestaurantJsonLd(), buildFaqJsonLd(FAQS)].filter(Boolean) } };
@@ -75,6 +75,23 @@ export default function Home({ jsonLd }) {
             <p className="section-more">
               <Link href="/menu">期間限定コース・アラカルト・お飲み物を見る →</Link>
             </p>
+          </div>
+        </section>
+
+        {/* ---- リール動画への画像リンク（お飲み物と店舗情報のあいだ） ---- */}
+        <section className="home-stripe home-reel">
+          <div className="container">
+            <a href={REEL_LINK.href} target="_blank" rel="noopener noreferrer" className="reel-link">
+              <img
+                src={REEL_LINK.image}
+                width={REEL_LINK.width}
+                height={REEL_LINK.height}
+                alt={REEL_LINK.alt}
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="reel-caption">{REEL_LINK.caption}</span>
+            </a>
           </div>
         </section>
 
