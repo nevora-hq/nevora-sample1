@@ -597,17 +597,11 @@ main {
   opacity: 0.85;
 }
 
-.reel-caption {
-  display: block;
-  margin-top: 12px;
-  line-height: 1.6;
-  letter-spacing: 0.12em;
-  color: var(--color-text-faint);
-}
-
 .reel-link img {
   width: 100%;
   height: auto;
+  border: 8px solid #fff;
+  box-sizing: border-box;
 }
 
 .home-stripe--tint {

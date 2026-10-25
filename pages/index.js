@@ -90,7 +90,6 @@ export default function Home({ jsonLd }) {
                 loading="lazy"
                 decoding="async"
               />
-              <span className="reel-caption">{REEL_LINK.caption}</span>
             </a>
           </div>
         </section>
@@ -109,6 +108,11 @@ export default function Home({ jsonLd }) {
             <h2 className="section-title">Instagram</h2>
             <p className="section-lead">実際のコースのお料理は、当店の公式Instagramにて多数ご紹介しております。</p>
             <InstagramEmbed />
+            <p className="instagram-link">
+              <a href={REEL_LINK.href} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+                {REEL_LINK.caption}
+              </a>
+            </p>
           </div>
         </section>
 
