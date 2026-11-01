@@ -33,7 +33,7 @@ export default function Menu({ jsonLd }) {
   return (
     <Layout
       title={`お品書き｜${SITE.name}`}
-      description="鮨しょうのお品書きです。おつまみコース 税込4,950円、大将お任せコース 税込8,580円・12,100円。期間限定コース、アラカルト、日本酒・焼酎・ワインもご紹介します。"
+      description="鮨しょうのお品書きです。おつまみコース 税込4,950円、大将おまかせ 税込8,580円・大将おまかせプレミアム 税込13,200円。期間限定コース、アラカルト、日本酒・焼酎・ワインもご紹介します。"
       canonicalPath="/menu/"
       wide
       jsonLd={jsonLd}
