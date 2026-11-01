@@ -25,9 +25,9 @@ export default function CourseCards({ group = "regular", withCta = false, compac
               {course.tag && <span className="course-card-reading">{course.tag}</span>}
             </h3>
             <p className="course-card-price">
-              {course.price}
-              <span className="course-price-tax">税込</span>
-              <span className="course-price-base">本体価格 {course.basePrice}</span>
+              {course.basePrice}
+              <span className="course-price-tax">税抜</span>
+              <span className="course-price-base">税込 {course.price}</span>
             </p>
           </header>
           {course.condition && <p className="course-card-duration">※{course.condition}</p>}
