@@ -2379,3 +2379,70 @@ main:not(.main--full) > .container > .cta {
   opacity: 0.3;
   cursor: default;
 }
+
+/* ---- スクロール時のフェードイン ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* PC：期間限定メニューの見出し・ボタンを中央揃え */
+@media (min-width: 701px) {
+  .seasonal-head {
+    justify-content: center;
+  }
+
+  .seasonal .menu-slider-hint {
+    text-align: center;
+  }
+}
+
+/* ---- 最初に見えるメインビジュアルのフェードイン（読み込み時） ---- */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-banner-img {
+  animation: hero-fade-in 1.4s ease both;
+}
+
+.hero-banner-copy {
+  animation: hero-rise-in 1.4s ease 0.3s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner-img,
+  .hero-banner-copy {
+    animation: none;
+  }
+}

@@ -17,6 +17,44 @@ export default function MyApp({ Component, pageProps }) {
     };
   }, [router.events]);
 
+  // スクロールで要素がふわっと現れるアニメーション（ページ遷移のたびに設定し直す）
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    let io;
+    const setup = () => {
+      if (io) io.disconnect();
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-visible");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      );
+      document
+        .querySelectorAll(
+          ".home-stripe .container > *, .page-section > *, .page-title, .page-lead"
+        )
+        .forEach((el) => {
+          if (el.classList.contains("is-visible")) return;
+          el.classList.add("reveal");
+          io.observe(el);
+        });
+    };
+    const t = setTimeout(setup, 50);
+    const onDone = () => setTimeout(setup, 50);
+    router.events.on("routeChangeComplete", onDone);
+    return () => {
+      clearTimeout(t);
+      router.events.off("routeChangeComplete", onDone);
+      if (io) io.disconnect();
+    };
+  }, [router.events]);
+
   return (
     <>
       {isGAEnabled && (
