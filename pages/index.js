@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import SectionBand from "../components/SectionBand";
+import SeasonalSlider from "../components/SeasonalSlider";
 import MenuSlider from "../components/MenuSlider";
 import CourseCards from "../components/CourseCards";
 import StoreInfo from "../components/StoreInfo";
@@ -70,6 +71,7 @@ export default function Home({ jsonLd }) {
             </p>
             <MenuSlider kind="food" label="料理メニューの画像" />
             <CourseCards group="regular" compact />
+            <SeasonalSlider size="small" />
             <h3 className="home-subtitle">お飲み物</h3>
             <MenuSlider kind="drink" label="お酒メニューの画像" />
             <p className="section-more">

@@ -1767,42 +1767,74 @@ main:not(.main--full) > .container > .cta {
 }
 
 /* ---- アラカルト ---- */
-.alacarte-list {
-  margin: 0;
+.alacarte-grid {
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--color-border);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
-.alacarte-item {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 8px 24px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--color-border);
+.alacarte-section {
+  padding: 20px 24px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.alacarte-heading {
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-primary);
+  font-size: 1.05rem;
+  color: var(--color-primary-dark);
+}
+
+.alacarte-note {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.alacarte-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alacarte-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px dotted var(--color-border);
+}
+
+.alacarte-row:last-child {
+  border-bottom: none;
 }
 
 .alacarte-name {
   font-weight: 700;
+}
+
+.alacarte-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  white-space: nowrap;
+}
+
+.alacarte-price-main {
+  font-weight: 700;
   color: var(--color-primary-dark);
 }
 
-.alacarte-body {
-  margin: 0;
+.alacarte-price-tax {
+  font-size: 0.75rem;
   color: var(--color-text-muted);
 }
 
-.alacarte-details {
-  margin: 0;
-  padding-left: 1.2em;
-}
-
-.alacarte-details strong {
-  color: var(--color-text);
-}
-
 @media (max-width: 700px) {
-  .alacarte-item {
+  .alacarte-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -2264,4 +2296,86 @@ main:not(.main--full) > .container > .cta {
 .menu-lightbox-nav:hover {
   background: var(--color-primary);
   color: var(--color-on-primary);
+}
+
+/* ---- 期間限定メニュー（冬・夏スライド） ---- */
+.seasonal {
+  margin: 0 0 32px;
+}
+
+.seasonal-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.seasonal-title {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--color-primary-dark);
+}
+
+.seasonal-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.seasonal-tab {
+  min-width: 48px;
+  padding: 6px 16px;
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.seasonal-tab.is-active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.seasonal-stage {
+  position: relative;
+  margin: 0 auto;
+}
+
+.seasonal--small .seasonal-stage {
+  max-width: 760px;
+}
+
+.seasonal--large .seasonal-stage {
+  max-width: 560px;
+}
+
+.seasonal-track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.seasonal-track::-webkit-scrollbar {
+  display: none;
+}
+
+.seasonal-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+}
+
+.seasonal-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.seasonal-stage .menu-slider-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
 }

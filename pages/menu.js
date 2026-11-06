@@ -3,6 +3,7 @@ import Cta from "../components/Cta";
 import CourseCards from "../components/CourseCards";
 import AlaCarte from "../components/AlaCarte";
 import DrinksMenu from "../components/DrinksMenu";
+import SeasonalSlider from "../components/SeasonalSlider";
 import MenuSlider from "../components/MenuSlider";
 import {
   SITE,
@@ -58,6 +59,7 @@ export default function Menu({ jsonLd }) {
           {COURSE_GROUPS.seasonal.title}
           <span className="section-title-badge">{COURSE_GROUPS.seasonal.badge}</span>
         </h2>
+        <SeasonalSlider size="large" />
         <CourseCards group="seasonal" />
         <p className="course-extra-note">
           ※{COURSE_INSTAGRAM_NOTE}
