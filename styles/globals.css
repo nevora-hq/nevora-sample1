@@ -1764,6 +1764,8 @@ main:not(.main--full) > .container > .cta {
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   vertical-align: middle;
+  display: inline-block;
+  white-space: nowrap; /* 「完全予約制」を途中で折り返さない（収まらなければ丸ごと次の行へ） */
 }
 
 /* ---- アラカルト ---- */
