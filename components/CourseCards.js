@@ -44,7 +44,7 @@ export default function CourseCards({ group = "regular", withCta = false, compac
             </p>
           </header>
           <p className="course-card-lead">{course.lead}</p>
-          {course.mainIngredients && (
+          {!compact && course.mainIngredients && (
             <p className="course-card-duration">主要食材：{course.mainIngredients}</p>
           )}
           {!compact && course.items.length > 0 && (
@@ -66,6 +66,13 @@ export default function CourseCards({ group = "regular", withCta = false, compac
               </ol>
               <p className="course-flow-note">{course.note}</p>
             </div>
+          )}
+          {compact && (
+            <p className="course-card-cta">
+              <Link href="/menu#course" className="btn btn--primary">
+                お品書きを見る
+              </Link>
+            </p>
           )}
           {withCta && (
             <p className="course-card-cta">
