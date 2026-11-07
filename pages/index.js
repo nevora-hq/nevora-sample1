@@ -70,7 +70,7 @@ export default function Home({ jsonLd }) {
               {MENU_NOTE}
             </p>
             <MenuSlider kind="food" label="料理メニューの画像" />
-            <CourseCards group="regular" compact />
+            <CourseCards group="regular" compact slider />
             <SeasonalSlider size="small" />
             <h3 className="home-subtitle">お飲み物</h3>
             <MenuSlider kind="drink" label="お酒メニューの画像" />
