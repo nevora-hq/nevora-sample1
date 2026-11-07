@@ -21,7 +21,25 @@ export default function StoreInfo() {
     { label: "座席数", value: company.seats },
     { label: "住所", value: company.address },
     { label: "アクセス", value: company.access },
-    { label: "電話番号", value: href ? <a href={href}>{company.tel}</a> : company.tel },
+    {
+      label: "電話番号",
+      value: (
+        <>
+          {href ? <a href={href}>{company.tel}</a> : company.tel}
+          {company.tel2 && (
+            <>
+              <br />
+              {telHref(company.tel2) ? (
+                <a href={telHref(company.tel2)}>{company.tel2}</a>
+              ) : (
+                company.tel2
+              )}
+              （携帯）
+            </>
+          )}
+        </>
+      ),
+    },
     {
       label: "Instagram",
       value: INSTAGRAM_URL ? (
