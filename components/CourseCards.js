@@ -20,6 +20,7 @@ export default function CourseCards({ group = "regular", withCta = false, compac
 
   const cards = courses.map((course) => ({
     key: course.slug,
+    equal: !course.featured,
     label: TAB_LABELS[course.slug] || `${course.no}${course.name}`,
     node: (
         <article
@@ -27,12 +28,14 @@ export default function CourseCards({ group = "regular", withCta = false, compac
           className={`course-card${course.featured ? " course-card--featured" : ""}`}
         >
           {course.featured && <p className="course-badge">まずはこちらから</p>}
-          {course.season && <p className="course-season">{course.season}</p>}
           <header className="course-card-head">
             <h3 className="course-card-name">
               <span className="course-no">{course.no}</span>
               {course.name}
-              {course.tag && <span className="course-card-reading">{course.tag}</span>}
+              {course.condition && <span className="course-card-condition">{course.condition}</span>}
+              {(course.tag || course.season) && (
+                <span className="course-card-reading">{course.tag || course.season}</span>
+              )}
             </h3>
             <p className="course-card-price">
               {course.basePrice}
@@ -40,11 +43,10 @@ export default function CourseCards({ group = "regular", withCta = false, compac
               <span className="course-price-base">税込 {course.price}</span>
             </p>
           </header>
-          {course.condition && <p className="course-card-duration">※{course.condition}</p>}
+          <p className="course-card-lead">{course.lead}</p>
           {course.mainIngredients && (
             <p className="course-card-duration">主要食材：{course.mainIngredients}</p>
           )}
-          <p className="course-card-lead">{course.lead}</p>
           {!compact && course.items.length > 0 && (
             <ul className="course-card-items">
               {course.items.map((item) => (

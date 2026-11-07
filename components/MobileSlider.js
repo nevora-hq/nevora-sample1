@@ -16,6 +16,39 @@ export default function MobileSlider({ items, gridClass, label }) {
     }
   }, [active]);
 
+  // スマホ：表示中のスライドの高さに合わせる（背の低いスライドの下に空白が残らないように）
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const fit = () => {
+      // equal 指定のスライド同士は、一番高いものに高さをそろえる
+      const eq = Array.from(el.children).filter((c) => c.dataset.equal);
+      eq.forEach((c) => {
+        c.style.minHeight = "";
+      });
+      if (window.matchMedia("(max-width: 700px)").matches && eq.length > 1) {
+        const max = Math.max(...eq.map((c) => c.offsetHeight));
+        eq.forEach((c) => {
+          c.style.minHeight = `${max}px`;
+        });
+      }
+      const slide = el.children[active];
+      if (window.matchMedia("(max-width: 700px)").matches && slide) {
+        el.style.height = `${slide.offsetHeight}px`;
+      } else {
+        el.style.height = "";
+      }
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(fit) : null;
+    if (ro && el.children[active]) ro.observe(el.children[active]);
+    return () => {
+      window.removeEventListener("resize", fit);
+      if (ro) ro.disconnect();
+    };
+  }, [active]);
+
   const slideAt = (i) => ref.current && ref.current.children[i];
 
   const goTo = (i) => {
@@ -56,7 +89,7 @@ export default function MobileSlider({ items, gridClass, label }) {
       </div>
       <div className={`mslider-track ${gridClass}`} ref={ref} onScroll={onScroll}>
         {items.map((it) => (
-          <div key={it.key} className="mslider-slide">
+          <div key={it.key} className="mslider-slide" data-equal={it.equal ? "1" : undefined}>
             {it.node}
           </div>
         ))}
