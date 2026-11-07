@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import SectionBand from "../components/SectionBand";
+import Photo from "../components/Photo";
 import SeasonalSlider from "../components/SeasonalSlider";
 import MenuSlider from "../components/MenuSlider";
 import CourseCards from "../components/CourseCards";
@@ -46,11 +47,36 @@ export default function Home({ jsonLd }) {
         {/* ---- コンセプト ---- */}
         <section className="home-stripe home-intro home-zone-1">
           <div className="container">
-            <h2 className="intro-title">{CONCEPT.title}</h2>
-            {CONCEPT.body.map((paragraph) => (
-              <p key={paragraph} className="intro-body">
-                {paragraph}
-              </p>
+            {/* 写真（左）と縦書きの見出し（右）を並べ、本文は横書きで下に続ける */}
+            <div className="intro-feature">
+              <div className="intro-photo">
+                <Photo base={IMAGES.intro} widths={[640, 1024]} label="写真（お店の紹介）" />
+              </div>
+              <h2 className="intro-title intro-title--vertical">
+                {CONCEPT.title.split("、").map((part, i, arr) => (
+                  <span key={part} className="intro-title-col">
+                    {part}
+                    {i < arr.length - 1 && "、"}
+                  </span>
+                ))}
+              </h2>
+            </div>
+            {/* 1段落目は導入の一文として写真の下に。2・3段落目は「写真＋文章」を左右交互に並べる */}
+            <p className="intro-body intro-lead">{CONCEPT.body[0]}</p>
+            {CONCEPT.body.slice(1).map((paragraph, i) => (
+              <div key={paragraph} className={`intro-row${i % 2 === 1 ? " intro-row--reverse" : ""}`}>
+                <div className="intro-photo intro-photo--side">
+                  <Photo
+                    base={IMAGES.introSide[i]}
+                    widths={[640, 1024]}
+                    label={`写真（${i === 0 ? "前菜・熟成魚" : "シャリ・握り"}）`}
+                  />
+                  <span className="intro-photo-tag" aria-hidden="true">
+                    {i === 0 ? "四季の前菜" : "熟成と赤酢のシャリ"}
+                  </span>
+                </div>
+                <p className="intro-body intro-body--side">{paragraph}</p>
+              </div>
             ))}
           </div>
         </section>

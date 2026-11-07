@@ -26,21 +26,26 @@ export default function Access({ jsonLd }) {
       title={`店舗情報｜${SITE.name}`}
       description="鮨しょうの店舗情報です。営業時間17:30〜21:00、定休日は毎週日曜日・月曜日（4名様以上のご予約なら日・月曜も営業）。総席数17席。"
       canonicalPath="/access/"
-      wide
+      fullWidth
       jsonLd={jsonLd}
     >
-      <h1 className="page-title">店舗情報</h1>
-
-      <section className="page-section">
-        <StoreInfo />
+      <section className="home-stripe home-zone-4">
+        <div className="container container--wide">
+          <h1 className="page-title">店舗情報</h1>
+          <StoreInfo />
+        </div>
       </section>
 
-      <section className="page-section">
-        <h2 className="section-title">Instagram</h2>
-        <InstagramEmbed />
+      <section className="home-stripe home-zone-1">
+        <div className="container container--wide">
+          <h2 className="section-title">Instagram</h2>
+          <InstagramEmbed />
+        </div>
       </section>
 
-      <Cta />
+      <div className="home-zone-5">
+        <Cta />
+      </div>
     </Layout>
   );
 }

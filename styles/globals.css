@@ -2726,3 +2726,382 @@ h4.drink-group-title {
     font-size: 0.68rem;
   }
 }
+
+/* ---- お店の紹介：写真＋縦書きの見出し ---- */
+.intro-feature {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 32px;
+  max-width: 880px;
+  margin: 0 auto 56px;
+}
+
+.intro-photo {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 320px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.intro-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-title--vertical {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row-reverse; /* 縦書きは右の列から読む */
+  gap: 20px;
+  margin: 0;
+  padding: 8px 0;
+  border-right: 1px solid var(--color-primary);
+  padding-right: 20px;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  line-height: 1.4;
+}
+
+.intro-title-col {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* 2列目（「革新を握る」）を少し下げて、ずらした並びにする */
+.intro-title-col + .intro-title-col {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.intro-title--vertical .intro-title-col:last-child {
+  margin-top: 48px;
+}
+
+@media (max-width: 600px) {
+  .intro-feature {
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .intro-photo {
+    min-height: 240px;
+  }
+
+  .intro-title--vertical {
+    gap: 10px;
+    padding-right: 12px;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+  }
+
+  .intro-title--vertical .intro-title-col:last-child {
+    margin-top: 28px;
+  }
+}
+
+/* ---- お店の紹介：導入文＋「写真と文章」を左右交互に ---- */
+.intro-lead {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.intro-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 880px;
+  margin: 0 auto 64px;
+}
+
+.intro-row--reverse {
+  flex-direction: row-reverse;
+}
+
+.intro-photo--side {
+  flex: 0 0 46%;
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+}
+
+.intro-body--side {
+  flex: 1 1 0;
+  margin: 0;
+  max-width: none;
+  font-size: 1rem;
+  line-height: 2.1;
+}
+
+.intro-row:last-child {
+  margin-bottom: 0;
+}
+
+/* スマホ：写真を上、文章を下に積む */
+@media (max-width: 700px) {
+  .intro-row,
+  .intro-row--reverse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .intro-photo--side {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .intro-body--side {
+    font-size: 0.95rem;
+    line-height: 2;
+  }
+
+  .intro-lead {
+    margin-bottom: 40px;
+  }
+}
+
+/* 写真に重ねる縦書きの小見出し */
+.intro-photo-tag {
+  position: absolute;
+  top: 0;
+  left: 14px;
+  z-index: 2;
+  padding: 16px 9px;
+  background: rgba(42, 26, 14, 0.88);
+  color: #fff;
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* スマホ：写真を端まで大きく見せ、縦書きの見出しを写真に重ねる */
+@media (max-width: 700px) {
+  .intro-feature {
+    position: relative;
+    display: block;
+    margin-bottom: 40px;
+  }
+
+  .intro-feature .intro-photo {
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .intro-title--vertical {
+    position: absolute;
+    top: -14px;
+    right: 0;
+    z-index: 2;
+    flex-direction: row-reverse;
+    gap: 8px;
+    padding: 22px 12px 22px 12px;
+    border: 0;
+    background: rgba(42, 26, 14, 0.88);
+    color: #fff;
+    font-size: 1.15rem;
+    letter-spacing: 0.22em;
+  }
+
+  .intro-title--vertical .intro-title-col:last-child {
+    margin-top: 26px;
+  }
+
+  /* 2枚目以降の写真は少しずらして、画面の端まで出す */
+  .intro-photo--side {
+    width: 82%;
+  }
+
+  .intro-row .intro-photo--side {
+    margin-left: auto;
+    margin-right: -16px;
+  }
+
+  .intro-row--reverse .intro-photo--side {
+    margin-left: -16px;
+    margin-right: auto;
+  }
+
+  .intro-row--reverse .intro-photo-tag {
+    left: auto;
+    right: 12px;
+  }
+
+  .intro-photo-tag {
+    left: 10px;
+    padding: 14px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+/* 長いURL（Instagram）でスマホの表が横にはみ出さないようにする */
+.info-table td {
+  overflow-wrap: anywhere;
+}
+
+/* スマホ：小さな正方形の写真（鮨のアップなど）を文章の横に置き、文章が回り込む */
+@media (max-width: 700px) {
+  .intro-row,
+  .intro-row--reverse {
+    display: block;
+    margin-bottom: 36px;
+  }
+
+  .intro-row::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .intro-row .intro-photo--side,
+  .intro-row--reverse .intro-photo--side {
+    float: left;
+    width: 38%;
+    aspect-ratio: 1 / 1;
+    margin: 4px 14px 6px 0;
+  }
+
+  .intro-row--reverse .intro-photo--side {
+    float: right;
+    margin: 4px 0 6px 14px;
+  }
+
+  /* 小さな写真には縦書きの小見出しを載せない */
+  .intro-photo-tag {
+    display: none;
+  }
+
+  .intro-body--side {
+    font-size: 0.9rem;
+    line-height: 2;
+    text-align: left;
+  }
+}
+
+/* お店の紹介（トップ）だけ文字・余白をひとまわり小さくして、縦の長さを抑える */
+@media (max-width: 700px) {
+  .home-intro {
+    padding-top: 56px;
+    padding-bottom: 48px;
+  }
+
+  .home-intro::before {
+    height: 48px;
+    margin-bottom: 24px;
+  }
+
+  .home-intro .intro-body {
+    font-size: 0.82rem;
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+  }
+
+  .home-intro .intro-lead {
+    margin-bottom: 28px;
+  }
+
+  .intro-feature {
+    margin-bottom: 28px;
+  }
+
+  .intro-row,
+  .intro-row--reverse {
+    margin-bottom: 24px;
+  }
+
+  .intro-row .intro-photo--side,
+  .intro-row--reverse .intro-photo--side {
+    width: 36%;
+  }
+}
+
+@media (min-width: 701px) {
+  .home-intro .intro-body--side {
+    font-size: 0.95rem;
+    line-height: 2;
+  }
+}
+
+/* スマホ：写真を横幅の半分ほどにし、短くした文章を小さめの文字で横に置く */
+@media (max-width: 700px) {
+  .intro-row .intro-photo--side,
+  .intro-row--reverse .intro-photo--side {
+    width: 48%;
+    aspect-ratio: 4 / 5;
+    margin-right: 14px;
+  }
+
+  .intro-row--reverse .intro-photo--side {
+    margin-right: 0;
+    margin-left: 14px;
+  }
+
+  .home-intro .intro-body--side {
+    font-size: 0.8rem;
+    line-height: 1.9;
+  }
+}
+
+/* ---- 2枚の写真は大きさも変え、文章の縦位置も変えて単調にしない ----
+   1段目：写真を大きめ・文章は縦中央　2段目：写真を小さめの縦長・文章は下揃え */
+.intro-row { align-items: center; }
+.intro-row--reverse { align-items: flex-end; }
+
+@media (min-width: 701px) {
+  .intro-row .intro-photo--side {
+    flex-basis: 52%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .intro-row--reverse .intro-photo--side {
+    flex-basis: 36%;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (max-width: 700px) {
+  .intro-row,
+  .intro-row--reverse {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .intro-row--reverse {
+    flex-direction: row-reverse;
+  }
+
+  .intro-row::after {
+    content: none;
+  }
+
+  .intro-row .intro-photo--side,
+  .intro-row--reverse .intro-photo--side {
+    float: none;
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
+  .intro-row .intro-photo--side {
+    width: 54%;
+    aspect-ratio: 4 / 5;
+  }
+
+  .intro-row--reverse .intro-photo--side {
+    width: 40%;
+    aspect-ratio: 3 / 4;
+  }
+
+  .home-intro .intro-body--side {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
