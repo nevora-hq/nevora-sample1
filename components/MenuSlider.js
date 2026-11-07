@@ -57,7 +57,7 @@ export default function MenuSlider({ kind, label }) {
       <button type="button" className="menu-slider-btn menu-slider-btn--next" onClick={() => move(1)} aria-label="次へ">
         ›
       </button>
-      <p className="menu-slider-hint">横にスワイプ／ボタンで送れます。タップで拡大します。</p>
+      <p className="menu-slider-hint">{kind === "drink" ? "タップで拡大します。" : "横にスワイプ／ボタンで送れます。タップで拡大します。"}</p>
 
       {openIndex !== null && (
         <div
