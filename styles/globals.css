@@ -2404,8 +2404,18 @@ main:not(.main--full) > .container > .cta {
 
 /* PC：期間限定メニューの見出し・ボタンを中央揃え */
 @media (min-width: 701px) {
+  /* 見出しは左詰め、「冬」「夏」ボタンだけ中央揃え */
   .seasonal-head {
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .seasonal-title {
+    text-align: left;
+  }
+
+  .seasonal-tabs {
+    grid-column: 2;
   }
 
   .seasonal .menu-slider-hint {
