@@ -44,7 +44,7 @@ export default function Home({ jsonLd }) {
 
       <div className="home-page">
         {/* ---- コンセプト ---- */}
-        <section className="home-stripe home-intro">
+        <section className="home-stripe home-intro home-zone-1">
           <div className="container">
             <h2 className="intro-title">{CONCEPT.title}</h2>
             {CONCEPT.body.map((paragraph) => (
@@ -59,7 +59,7 @@ export default function Home({ jsonLd }) {
         <SectionBand base={IMAGES.band} widths={[640, 1024, 1600]} objectPosition="50% 45%" />
 
         {/* ---- お品書き（おつまみコースを主役に） ---- */}
-        <section className="home-stripe home-stripe--tint" id="menu">
+        <section className="home-stripe home-stripe--tint home-zone-2" id="menu">
           <div className="container container--wide">
             <h2 className="section-title">お品書き</h2>
             <p className="section-lead">
@@ -71,6 +71,12 @@ export default function Home({ jsonLd }) {
             </p>
             <MenuSlider kind="food" label="料理メニューの画像" />
             <CourseCards group="regular" compact slider />
+          </div>
+        </section>
+
+        {/* ---- 期間限定メニュー・お飲み物 ---- */}
+        <section className="home-stripe home-stripe--tint home-zone-3" id="seasonal-drink">
+          <div className="container container--wide">
             <SeasonalSlider size="small" />
             <h3 className="home-subtitle">お飲み物</h3>
             <MenuSlider kind="drink" label="お酒メニューの画像" />
@@ -81,7 +87,7 @@ export default function Home({ jsonLd }) {
         </section>
 
         {/* ---- 店舗情報（定休日の例外を強調・Googleマップ） ---- */}
-        <section className="home-stripe" id="access">
+        <section className="home-stripe home-zone-4" id="access">
           <div className="container container--wide">
             <h2 className="section-title">店舗情報</h2>
             <StoreInfo />
@@ -89,7 +95,7 @@ export default function Home({ jsonLd }) {
         </section>
 
         {/* ---- Instagram（ページ最下部付近） ---- */}
-        <section className="home-stripe home-stripe--tint" id="instagram">
+        <section className="home-stripe home-stripe--tint home-zone-5" id="instagram">
           <div className="container container--wide">
             <h2 className="section-title">Instagram</h2>
             <p className="section-lead">実際のコースのお料理は、当店の公式Instagramにて多数ご紹介しております。</p>
@@ -115,7 +121,7 @@ export default function Home({ jsonLd }) {
         </section>
 
         {/* ---- よくあるご質問 ---- */}
-        <section className="home-stripe" id="faq">
+        <section className="home-stripe home-zone-5" id="faq">
           <div className="container container--wide">
             <div className="narrow-block">
               {/* 全体を開閉式にし、中に質問ごとの開閉式を入れる（回答は閉じていてもHTMLに含まれる） */}
@@ -132,7 +138,9 @@ export default function Home({ jsonLd }) {
           </div>
         </section>
 
-        <Cta />
+        <div className="home-zone-5">
+          <Cta />
+        </div>
       </div>
     </Layout>
   );

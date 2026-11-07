@@ -2556,3 +2556,12 @@ h4.drink-group-title {
 .drink-name {
   font-weight: 700;
 }
+
+/* ---- トップページ：ゾーンごとに背景色を少しずつ変える ----
+   木目（.site-bg）を透かすため半透明。文字色は変えないので、濃い茶の文字が読める明るさに保つ。
+   ①紹介 ②お品書き ③期間限定・お飲み物 ④店舗情報 ⑤Instagram以下 */
+.home-zone-1 { background: rgba(239, 223, 186, 0.62); }
+.home-zone-2 { background: rgba(250, 242, 222, 0.62); }
+.home-zone-3 { background: rgba(229, 203, 156, 0.62); }
+.home-zone-4 { background: rgba(244, 235, 216, 0.62); }
+.home-zone-5 { background: rgba(214, 190, 143, 0.62); }
