@@ -1,17 +1,27 @@
 import Link from "next/link";
 import { COURSES, COURSE_FLOW } from "../lib/siteConfig";
+import MobileSlider from "./MobileSlider";
+
+// スマホのタブボタン用の短い名前
+const TAB_LABELS = {
+  otsumami: "①おつまみ",
+  "taisho-standard": "②大将おまかせ",
+  "taisho-premium": "③大将プレミアム",
+  "niku-kappo": "④極上肉割烹",
+};
 
 // コースカード（トップ・/menu で共用）。group で「通年」「期間限定」を出し分ける。
 // featured のコース（おつまみコース）は全幅で目立たせ、
 // 「コース → アラカルト追加」という定番の流れを添える。
 // compact=true（トップ用）では内容の内訳を省く。
-export default function CourseCards({ group = "regular", withCta = false, compact = false }) {
+export default function CourseCards({ group = "regular", withCta = false, compact = false, slider = false }) {
   const courses = COURSES.filter((c) => c.group === group);
   if (courses.length === 0) return null;
 
-  return (
-    <div className="course-grid">
-      {courses.map((course) => (
+  const cards = courses.map((course) => ({
+    key: course.slug,
+    label: TAB_LABELS[course.slug] || `${course.no}${course.name}`,
+    node: (
         <article
           key={course.slug}
           className={`course-card${course.featured ? " course-card--featured" : ""}`}
@@ -63,6 +73,18 @@ export default function CourseCards({ group = "regular", withCta = false, compac
             </p>
           )}
         </article>
+    ),
+  }));
+
+  if (slider) {
+    return <MobileSlider items={cards} gridClass="course-grid" label="コース" />;
+  }
+  return (
+    <div className="course-grid">
+      {cards.map((c) => (
+        <div key={c.key} className="mslider-slide">
+          {c.node}
+        </div>
       ))}
     </div>
   );

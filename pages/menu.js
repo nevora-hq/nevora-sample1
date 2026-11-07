@@ -10,8 +10,6 @@ import {
   MENU_GUIDE,
   MENU_NOTE,
   COURSE_GROUPS,
-  COURSE_INSTAGRAM_NOTE,
-  INSTAGRAM_URL,
   ALACARTE,
 } from "../lib/siteConfig";
 import { buildBreadcrumbJsonLd } from "../lib/structuredData";
@@ -51,7 +49,7 @@ export default function Menu({ jsonLd }) {
       <section className="page-section" id="course">
         <h2 className="section-title">{COURSE_GROUPS.regular.title}</h2>
         <MenuSlider kind="food" label="料理メニューの画像" />
-        <CourseCards group="regular" withCta />
+        <CourseCards group="regular" withCta slider />
       </section>
 
       <section className="page-section" id="seasonal">
@@ -60,18 +58,6 @@ export default function Menu({ jsonLd }) {
           <span className="section-title-badge">{COURSE_GROUPS.seasonal.badge}</span>
         </h2>
         <SeasonalSlider size="large" />
-        <CourseCards group="seasonal" />
-        <p className="course-extra-note">
-          ※{COURSE_INSTAGRAM_NOTE}
-          {INSTAGRAM_URL && (
-            <>
-              {" "}
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-                Instagramを見る →
-              </a>
-            </>
-          )}
-        </p>
       </section>
 
       <section className="page-section" id="alacarte">

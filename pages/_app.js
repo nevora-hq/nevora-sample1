@@ -36,8 +36,9 @@ export default function MyApp({ Component, pageProps }) {
         { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
       );
       document
+        // 文字は対象外。画像・写真・地図・スライダー・Instagramなどのメディアだけ
         .querySelectorAll(
-          ".home-stripe .container > *, .page-section > *, .page-title, .page-lead"
+          ".menu-slider, .seasonal, .photo-placeholder, .map-embed, .instagram-embed, .home-stripe img:not(.menu-slider img):not(.seasonal img), .page-section img:not(.menu-slider img):not(.seasonal img)"
         )
         .forEach((el) => {
           if (el.classList.contains("is-visible")) return;

@@ -2448,3 +2448,111 @@ main:not(.main--full) > .container > .cta {
     animation: none;
   }
 }
+
+/* ---- スマホ：横スライド＋タブボタン（PCは従来のグリッド） ---- */
+.mslider-tabs,
+.mslider-hint {
+  display: none;
+}
+
+.mslider-slide {
+  display: contents;
+}
+
+@media (max-width: 700px) {
+  .mslider {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .mslider-tabs {
+    display: flex;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    gap: 6px;
+    margin: 0 0 12px;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .mslider-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mslider-tab {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    padding: 6px 12px;
+    border: 1px solid var(--color-primary);
+    background: transparent;
+    color: var(--color-primary);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .mslider-tab.is-active {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  .mslider-track {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    align-items: flex-start;
+  }
+
+  .mslider-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mslider-slide {
+    display: block;
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .mslider-hint {
+    display: block;
+    margin: 10px 0 0;
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+}
+
+/* ---- お飲み物：大項目・中項目を見分けやすく ---- */
+.drink-group-title--major {
+  margin: 0 0 16px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+h4.drink-group-title {
+  margin: 28px 0 10px;
+  padding: 6px 12px;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-primary-surface);
+  color: var(--color-primary-dark);
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.drink-name {
+  font-weight: 700;
+}
