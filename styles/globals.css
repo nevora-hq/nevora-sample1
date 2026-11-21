@@ -3142,6 +3142,11 @@ h4.drink-group-title {
     left: 6px;
     right: auto;
   }
+  /* 2段目の文章を2行分（行間1.9×2）下げて、上の写真と重ならないようにする */
+  .home-intro .intro-row--reverse .intro-body--side {
+    position: relative;
+    top: 3.8em;
+  }
 }
 
 /* ---- トップ：紹介とお品書きの間の横長写真（画面幅いっぱい。3枚並びの画像が欠けないよう元の比率のまま） ---- */
