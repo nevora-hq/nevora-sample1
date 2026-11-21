@@ -22,8 +22,8 @@
   --color-primary-surface: #f1e4c8;
   --color-on-primary: #fffaf0;
 
-  --color-bg: #e4c995;
-  --color-surface: #fbf6ec;
+  --color-bg: #fbe3bd;
+  --color-surface: #fffaf1;
   --color-border: #d6bf98;
   --color-text: #2a1a0e;
   --color-text-muted: #4a3826;
@@ -164,7 +164,7 @@ main {
   pointer-events: none;
   /* 明るい木目調。画像(public/images/wood-bg.webp)の上に、文字を読みやすくするための生成り色の膜を重ねる */
   background:
-    linear-gradient(rgba(251, 246, 236, 0.45), rgba(251, 246, 236, 0.45)),
+    linear-gradient(rgba(255, 232, 198, 0.88), rgba(255, 232, 198, 0.88)),
     url("/images/wood-bg.webp") center / cover no-repeat;
   background-color: var(--color-bg);
 }
@@ -566,8 +566,12 @@ main {
     font-size: 1.75rem;
   }
 
+  /* スマホ：1行に収める（31文字が画面幅に収まるよう、文字サイズを画面幅から算出） */
   .hero-banner-lead {
-    font-size: 0.98rem;
+    font-size: clamp(0.6rem, calc((100vw - 32px) / 32), 0.86rem);
+    line-height: 1.55;
+    padding: 17px 0;
+    white-space: nowrap;
   }
 
   .hero-banner-actions .btn {
@@ -2572,11 +2576,11 @@ h4.drink-group-title {
 /* ---- トップページ：ゾーンごとに背景色を少しずつ変える ----
    木目（.site-bg）を透かすため半透明。文字色は変えないので、濃い茶の文字が読める明るさに保つ。
    ①紹介 ②お品書き ③期間限定・お飲み物 ④店舗情報 ⑤Instagram以下 */
-.home-zone-1 { background: rgba(239, 223, 186, 0.62); }
-.home-zone-2 { background: rgba(250, 242, 222, 0.62); }
-.home-zone-3 { background: rgba(229, 203, 156, 0.62); }
-.home-zone-4 { background: rgba(244, 235, 216, 0.62); }
-.home-zone-5 { background: rgba(214, 190, 143, 0.62); }
+.home-zone-1 { background: rgba(255, 226, 184, 0.7); }
+.home-zone-2 { background: rgba(255, 243, 224, 0.7); }
+.home-zone-3 { background: rgba(252, 214, 164, 0.7); }
+.home-zone-4 { background: rgba(255, 238, 214, 0.7); }
+.home-zone-5 { background: rgba(249, 207, 156, 0.7); }
 
 /* おつまみコース以外：名前 → サブタイトル → 価格 の順に縦に並べ、②③④で文字の位置を揃える */
 .course-card:not(.course-card--featured) .course-card-head {
@@ -2827,6 +2831,12 @@ h4.drink-group-title {
   flex: 0 0 46%;
   min-height: 0;
   aspect-ratio: 4 / 3;
+  /* 角を丸め、クリーム色の縁取り＋琥珀色の細い輪郭線で写真を浮かび上がらせる */
+  border-radius: 22px;
+  border: 5px solid var(--color-surface);
+  box-shadow:
+    0 0 0 1px var(--color-primary-light),
+    var(--shadow-md);
 }
 
 .intro-body--side {
@@ -3054,6 +3064,16 @@ h4.drink-group-title {
 .intro-row { align-items: center; }
 .intro-row--reverse { align-items: flex-end; }
 
+/* PC：2段目の文章も写真の縦中央にそろえる（下揃えだと上に大きな空白ができるため） */
+@media (min-width: 701px) {
+  .intro-row--reverse { align-items: center; }
+
+  /* 2段目を上に引き上げ、右の写真の上部が左の写真の下部と同じ高さにくるようにする（縦の間延びを抑える） */
+  .intro-row--reverse {
+    margin-top: -110px;
+  }
+}
+
 @media (min-width: 701px) {
   .intro-row .intro-photo--side {
     flex-basis: 52%;
@@ -3077,6 +3097,8 @@ h4.drink-group-title {
 
   .intro-row--reverse {
     flex-direction: row-reverse;
+    align-items: center; /* 文章を写真の縦中央に（下揃えだと上に空白ができる） */
+    margin-top: -36px; /* 2段目を少し引き上げ、1段目の写真の下端に写真の上部が近づくようにする */
   }
 
   .intro-row::after {
@@ -3104,4 +3126,85 @@ h4.drink-group-title {
     flex: 1 1 0;
     min-width: 0;
   }
+
+  /* 縦書きの小見出し（「四季の前菜」など）はスマホの小さな写真にも載せる。写真に収まるよう小さめに */
+  .intro-photo-tag {
+    display: block;
+    top: 0;
+    left: 6px;
+    right: auto;
+    padding: 9px 5px;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+  }
+
+  .intro-row--reverse .intro-photo-tag {
+    left: 6px;
+    right: auto;
+  }
+}
+
+/* ---- トップ：紹介とお品書きの間の横長写真（画面幅いっぱい。3枚並びの画像が欠けないよう元の比率のまま） ---- */
+.home-strip {
+  width: 100%;
+  line-height: 0;
+}
+
+.home-strip img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- メインビジュアルの文字：助詞を小さくしてメリハリをつける ---- */
+.hero-josi {
+  font-size: 0.72em;
+}
+
+/* 「贅」「一貫」：金色のグラデーション（文字の影は background-clip と干渉するため drop-shadow で付ける） */
+.hero-gold {
+  background: linear-gradient(135deg, #fff1b8 0%, #e8c56a 35%, #b9852a 65%, #f2d98a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+/* リード文を上下から囲む金色の飾り：細い二重の曲線＋中央のひし形。曲線は両端へ向かって薄れる。下側は上側を上下反転したもの */
+.hero-banner-lead {
+  position: relative;
+  width: fit-content; /* 飾りの幅を文字の幅に合わせる */
+  max-width: 100%;
+  padding: 20px 0;
+}
+
+.hero-banner-lead::before,
+.hero-banner-lead::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background-repeat: no-repeat;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 9 9'%3E%3Cpath d='M4.5 0 9 4.5 4.5 9 0 4.5z' fill='%23f2d98a'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 18' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g'%3E%3Cstop offset='0' stop-color='%23e8c56a' stop-opacity='0'/%3E%3Cstop offset='.25' stop-color='%23f2d98a'/%3E%3Cstop offset='.75' stop-color='%23f2d98a'/%3E%3Cstop offset='1' stop-color='%23e8c56a' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23g)' vector-effect='non-scaling-stroke'%3E%3Cpath d='M0 17Q320-5 640 17' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M110 17Q320 4 530 17' stroke-width='.7' stroke-opacity='.7' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: center 1px, 0 0;
+  background-size: 9px 9px, 100% 100%;
+}
+
+.hero-banner-lead::before {
+  top: 0;
+}
+
+.hero-banner-lead::after {
+  bottom: 0;
+  transform: scaleY(-1);
+}
+
+/* 見出し・小見出しの助詞を小さくする */
+.josi-small {
+  font-size: 0.72em;
 }

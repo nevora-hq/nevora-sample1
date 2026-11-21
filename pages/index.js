@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
-import SectionBand from "../components/SectionBand";
+import SmallParticles from "../components/SmallParticles";
 import Photo from "../components/Photo";
 import SeasonalSlider from "../components/SeasonalSlider";
 import MenuSlider from "../components/MenuSlider";
@@ -50,13 +50,13 @@ export default function Home({ jsonLd }) {
             {/* 写真（左）と縦書きの見出し（右）を並べ、本文は横書きで下に続ける */}
             <div className="intro-feature">
               <div className="intro-photo">
-                <Photo base={IMAGES.intro} widths={[640, 1024]} label="写真（お店の紹介）" />
+                <Photo base={IMAGES.intro} widths={[640, 870]} label="写真（お店の紹介）" />
               </div>
               <h2 className="intro-title intro-title--vertical">
-                {CONCEPT.title.split("、").map((part, i, arr) => (
+                {/* 「、」で2列に分け、「、」自体は表示しない。助詞は小さくする */}
+                {CONCEPT.title.split("、").map((part) => (
                   <span key={part} className="intro-title-col">
-                    {part}
-                    {i < arr.length - 1 && "、"}
+                    <SmallParticles text={part} />
                   </span>
                 ))}
               </h2>
@@ -68,11 +68,11 @@ export default function Home({ jsonLd }) {
                 <div className="intro-photo intro-photo--side">
                   <Photo
                     base={IMAGES.introSide[i]}
-                    widths={[640, 1024]}
+                    widths={[640, 870]}
                     label={`写真（${i === 0 ? "前菜・熟成魚" : "シャリ・握り"}）`}
                   />
                   <span className="intro-photo-tag" aria-hidden="true">
-                    {i === 0 ? "四季の前菜" : "熟成と赤酢のシャリ"}
+                    <SmallParticles text={i === 0 ? "四季の前菜" : "熟成と赤酢のシャリ"} />
                   </span>
                 </div>
                 <p className="intro-body intro-body--side">{paragraph}</p>
@@ -81,8 +81,10 @@ export default function Home({ jsonLd }) {
           </div>
         </section>
 
-        {/* 画像バンド（写真は lib/siteConfig.js の IMAGES.band） */}
-        <SectionBand base={IMAGES.band} widths={[640, 1024, 1600]} objectPosition="50% 45%" />
+        {/* 横長の写真（lib/siteConfig.js の IMAGES.strip。仮の写真） */}
+        <div className="home-strip">
+          <Photo base={IMAGES.strip} widths={[640, 834]} />
+        </div>
 
         {/* ---- お品書き（おつまみコースを主役に） ---- */}
         <section className="home-stripe home-stripe--tint home-zone-2" id="menu">
