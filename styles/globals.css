@@ -3098,7 +3098,7 @@ h4.drink-group-title {
   .intro-row--reverse {
     flex-direction: row-reverse;
     align-items: center; /* 文章を写真の縦中央に（下揃えだと上に空白ができる） */
-    margin-top: -36px; /* 2段目を少し引き上げ、1段目の写真の下端に写真の上部が近づくようにする */
+    margin-top: -12px; /* 2段目を少し引き上げる。写真と文章は同じ行にあるので、動かしても高さは揃ったまま（文章が上の写真に被らない範囲） */
   }
 
   .intro-row::after {
@@ -3141,11 +3141,6 @@ h4.drink-group-title {
   .intro-row--reverse .intro-photo-tag {
     left: 6px;
     right: auto;
-  }
-  /* 2段目の文章を2行分（行間1.9×2）下げて、上の写真と重ならないようにする */
-  .home-intro .intro-row--reverse .intro-body--side {
-    position: relative;
-    top: 3.8em;
   }
 }
 
