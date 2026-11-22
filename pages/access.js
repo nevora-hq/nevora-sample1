@@ -24,7 +24,7 @@ export default function Access({ jsonLd }) {
   return (
     <Layout
       title={`店舗情報｜${SITE.name}`}
-      description="鮨しょうの店舗情報です。営業時間17:30〜21:00、定休日は毎週日曜日・月曜日（4名様以上のご予約なら日・月曜も営業）。総席数17席。"
+      description="鮨しょうの店舗情報です。営業時間17:30〜22:00、定休日は毎週日曜日・月曜日（4名様以上のご予約なら日・月曜も営業）。総席数17席。"
       canonicalPath="/access/"
       fullWidth
       jsonLd={jsonLd}
