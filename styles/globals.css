@@ -3290,3 +3290,14 @@ h4.drink-group-title {
 .photo-carousel-dots span.is-active {
   background: var(--color-primary);
 }
+
+/* 切り替え写真（四季の前菜）は縦長(3:4)で、器の全体を見せる */
+.intro-photo--side.intro-photo--tall {
+  aspect-ratio: 3 / 4;
+}
+
+@media (min-width: 701px) {
+  .intro-photo--side.intro-photo--tall {
+    flex-basis: 38%;
+  }
+}

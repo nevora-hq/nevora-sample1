@@ -3,7 +3,7 @@ import { useState } from "react";
 // 写真の切り替え表示。◀▶ボタン（と下の丸印）で送る。
 // bases … 拡張子・幅サフィックスなしのパスの配列（Photo と同じ規則）。widths … srcset の幅
 // 親要素（.intro-photo）いっぱいに表示する。
-export default function PhotoCarousel({ bases, widths = [640, 870], label }) {
+export default function PhotoCarousel({ bases, widths = [480, 720], label }) {
   const [index, setIndex] = useState(0);
   const count = bases.length;
   const go = (dir) => setIndex((i) => (i + dir + count) % count);
@@ -15,7 +15,7 @@ export default function PhotoCarousel({ bases, widths = [640, 870], label }) {
           key={base}
           src={`${base}.webp`}
           srcSet={widths.map((w) => `${base}-${w}.webp ${w}w`).join(", ")}
-          sizes="(max-width: 700px) 82vw, 460px"
+          sizes="(max-width: 700px) 82vw, 400px"
           alt=""
           className={i === index ? "is-active" : undefined}
           loading={i === 0 ? undefined : "lazy"}

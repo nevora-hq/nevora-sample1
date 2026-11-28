@@ -66,7 +66,7 @@ export default function Home({ jsonLd }) {
             <p className="intro-body intro-lead">{CONCEPT.body[0]}</p>
             {CONCEPT.body.slice(1).map((paragraph, i) => (
               <div key={paragraph} className={`intro-row${i % 2 === 1 ? " intro-row--reverse" : ""}`}>
-                <div className="intro-photo intro-photo--side">
+                <div className={`intro-photo intro-photo--side${Array.isArray(IMAGES.introSide[i]) ? " intro-photo--tall" : ""}`}>
                   {Array.isArray(IMAGES.introSide[i]) ? (
                     <PhotoCarousel bases={IMAGES.introSide[i]} label="四季の前菜の写真" />
                   ) : (
