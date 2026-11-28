@@ -41,7 +41,7 @@ def _vivid_frac(im, thr=200):
     return sum(1 for x in data if x >= thr) / len(data)
 
 
-def enhance(im, s=1.28, c=1.04, red=True, target_v=186):
+def enhance(im, s=1.28, c=1.10, red=True, target_v=194):
     """明るく鮮やかにする（写真ごとに強さを自動調整して、白飛び・ぎらつきを防ぐ）
     ・明るさ … 中間調を持ち上げる（ガンマ補正）。もともと明るい写真は持ち上げを控え、白飛びさせない
     ・彩度   … s 倍まで。色がぎらつく画素が増える写真は、段階的に弱める
@@ -61,6 +61,10 @@ def enhance(im, s=1.28, c=1.04, red=True, target_v=186):
     if red:
         im = red_boost(im, 1.7)
     return im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=40, threshold=3))
+
+
+# 写真ごとの補正の上書き。巻物の盛り合わせ（卵焼きの黄色が強い）は、明暗は強めず、明るさだけ少し上げる
+ENH_OVERRIDE = {"85696708": {"c": 1.04, "target_v": 198}}
 
 
 # 切り替え写真は、器の中心と大きさをそろえて、切り替えたときに目線が動かないようにする（拡大率）
@@ -172,11 +176,11 @@ if __name__ == "__main__":
             save(im, f"{base}-{w}.webp", w)
         print(base, im.size)
     for i, num in enumerate(SUSHI, 1):
-        im = enhance(sushi_square(load(num)))
+        im = enhance(sushi_square(load(num)), **ENH_OVERRIDE.get(num, {}))
         save(im, f"menu/sushi-{i:02d}.webp", 900, q=80)
     print("sushi", len(SUSHI))
     for i, num in enumerate(NIGIRI, 1):
-        im = enhance(sushi_portrait(load(num)))
+        im = enhance(sushi_portrait(load(num)), **ENH_OVERRIDE.get(num, {}))
         save(im, f"intro/nigiri-{i:02d}.webp", 720, q=80)
         save(im, f"intro/nigiri-{i:02d}-480.webp", 480, q=80)
         save(im, f"intro/nigiri-{i:02d}-720.webp", 720, q=80)
