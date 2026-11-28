@@ -68,8 +68,10 @@ export default function Menu({ jsonLd }) {
         <div className="container container--wide">
           <h2 className="section-title">{ALACARTE.title}</h2>
           <MenuSlider kind="sushi" label="単品の握り寿司の写真" />
-          <h3 className="home-subtitle">大将おまかせのお料理</h3>
-          <MenuSlider kind="omakase" label="大将おまかせコースのお料理の写真" />
+          <h3 className="home-subtitle">大将おまかせ（料理の例）</h3>
+          <MenuSlider kind="omakase" label="大将おまかせの料理の例の写真" />
+          <h3 className="home-subtitle">大将おまかせプレミアム（料理の例）</h3>
+          <MenuSlider kind="premium" label="大将おまかせプレミアムの料理の例の写真" />
           <AlaCarte />
         </div>
       </section>

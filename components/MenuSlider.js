@@ -61,7 +61,7 @@ export default function MenuSlider({ kind, label }) {
           ›
         </button>
       )}
-      <p className="menu-slider-hint">{kind === "drink" || kind === "sushi" || kind === "omakase" ? "タップで拡大します。" : "横にスワイプ／ボタンで送れます。タップで拡大します。"}</p>
+      <p className="menu-slider-hint">{kind === "drink" || kind === "sushi" || kind === "omakase" || kind === "premium" ? "タップで拡大します。" : "横にスワイプ／ボタンで送れます。タップで拡大します。"}</p>
 
       {openIndex !== null && (
         <div
