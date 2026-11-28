@@ -37,9 +37,11 @@ export default function MenuSlider({ kind, label }) {
 
   return (
     <div className="menu-slider" role="region" aria-label={label}>
-      <button type="button" className="menu-slider-btn menu-slider-btn--prev" onClick={() => move(-1)} aria-label="前へ">
-        ‹
-      </button>
+      {slides.length > 1 && (
+        <button type="button" className="menu-slider-btn menu-slider-btn--prev" onClick={() => move(-1)} aria-label="前へ">
+          ‹
+        </button>
+      )}
       <ul className="menu-slider-track" ref={ref} tabIndex={0}>
         {slides.map((s, i) => (
           <li key={s.src} className="menu-slider-item">
@@ -54,10 +56,12 @@ export default function MenuSlider({ kind, label }) {
           </li>
         ))}
       </ul>
-      <button type="button" className="menu-slider-btn menu-slider-btn--next" onClick={() => move(1)} aria-label="次へ">
-        ›
-      </button>
-      <p className="menu-slider-hint">{kind === "drink" || kind === "sushi" || kind === "premium" ? "タップで拡大します。" : "横にスワイプ／ボタンで送れます。タップで拡大します。"}</p>
+      {slides.length > 1 && (
+        <button type="button" className="menu-slider-btn menu-slider-btn--next" onClick={() => move(1)} aria-label="次へ">
+          ›
+        </button>
+      )}
+      <p className="menu-slider-hint">{kind === "drink" || kind === "sushi" || kind === "omakase" ? "タップで拡大します。" : "横にスワイプ／ボタンで送れます。タップで拡大します。"}</p>
 
       {openIndex !== null && (
         <div
