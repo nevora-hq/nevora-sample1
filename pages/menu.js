@@ -5,14 +5,12 @@ import AlaCarte from "../components/AlaCarte";
 import DrinksMenu from "../components/DrinksMenu";
 import SeasonalSlider from "../components/SeasonalSlider";
 import MenuSlider from "../components/MenuSlider";
-import Photo from "../components/Photo";
 import {
   SITE,
   MENU_GUIDE,
   MENU_NOTE,
   COURSE_GROUPS,
   ALACARTE,
-  IMAGES,
 } from "../lib/siteConfig";
 import { buildBreadcrumbJsonLd } from "../lib/structuredData";
 
@@ -53,10 +51,6 @@ export default function Menu({ jsonLd }) {
           <h2 className="section-title">{COURSE_GROUPS.regular.title}</h2>
           <MenuSlider kind="food" label="料理メニューの画像" />
           <CourseCards group="regular" withCta slider />
-          <figure className="menu-photo">
-            <Photo base={IMAGES.sashimi} widths={[480, 900]} />
-            <figcaption>お刺身</figcaption>
-          </figure>
         </div>
       </section>
 

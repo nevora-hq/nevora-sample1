@@ -68,16 +68,16 @@ export default function Home({ jsonLd }) {
               <div key={paragraph} className={`intro-row${i % 2 === 1 ? " intro-row--reverse" : ""}`}>
                 <div className={`intro-photo intro-photo--side${Array.isArray(IMAGES.introSide[i]) ? " intro-photo--tall" : ""}`}>
                   {Array.isArray(IMAGES.introSide[i]) ? (
-                    <PhotoCarousel bases={IMAGES.introSide[i]} label={i === 0 ? "四季の前菜の写真" : "握りの写真"} />
+                    <PhotoCarousel bases={IMAGES.introSide[i]} label={i === 0 ? "四季のお料理の写真" : "握りの写真"} />
                   ) : (
                     <Photo
                       base={IMAGES.introSide[i]}
                       widths={[640, 870]}
-                      label={`写真（${i === 0 ? "前菜・熟成魚" : "シャリ・握り"}）`}
+                      label={`写真（${i === 0 ? "四季のお料理" : "シャリ・握り"}）`}
                     />
                   )}
                   <span className="intro-photo-tag" aria-hidden="true">
-                    <SmallParticles text={i === 0 ? "四季の前菜" : "熟成と赤酢のシャリ"} />
+                    <SmallParticles text={i === 0 ? "四季のお料理" : "熟成と赤酢のシャリ"} />
                   </span>
                 </div>
                 <p className="intro-body intro-body--side">{paragraph}</p>

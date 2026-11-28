@@ -3160,6 +3160,8 @@ h4.drink-group-title {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 420px; /* 大画面で大きくなり過ぎないように */
+  object-fit: cover;
 }
 
 /* ---- メインビジュアルの文字：助詞を小さくしてメリハリをつける ---- */
@@ -3298,31 +3300,4 @@ h4.drink-group-title {
   .intro-photo--side.intro-photo--tall {
     flex-basis: 38%;
   }
-}
-
-/* お品書きページのお刺身の写真（正方形・中央） */
-.menu-photo {
-  width: min(440px, 100%);
-  margin: 40px auto 0;
-  text-align: center;
-}
-
-.menu-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 22px;
-  border: 5px solid var(--color-surface);
-  box-shadow:
-    0 0 0 1px var(--color-primary-light),
-    var(--shadow-md);
-}
-
-.menu-photo figcaption {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
-  color: var(--color-text-muted);
 }
