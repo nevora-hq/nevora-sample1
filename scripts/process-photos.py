@@ -8,7 +8,7 @@
 - 切り抜き位置・使う写真を変えるときは下の JOBS / SUSHI を編集する
 """
 from pathlib import Path
-from PIL import Image, ImageEnhance, ImageOps, ImageFilter
+from PIL import Image, ImageChops, ImageEnhance, ImageOps, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "画像フォルダ"
@@ -19,10 +19,23 @@ def load(num):
     return ImageOps.exif_transpose(Image.open(SRC / f"S__{num}.jpg")).convert("RGB")
 
 
-def enhance(im, b=1.06, c=1.06, s=1.10):
+def red_boost(im, amount=1.9):
+    """赤い部分（肉・マグロの赤身）だけ、赤みを強める。色相が赤（約-20〜+11度）で、彩度のある画素が対象"""
+    h, s, v = im.convert("HSV").split()
+    hm = h.point(lambda x: 255 if (x >= 240 or x <= 8) else 0)
+    sm = s.point(lambda x: 255 if x >= 70 else 0)
+    vm = v.point(lambda x: 255 if x >= 40 else 0)
+    mask = ImageChops.multiply(ImageChops.multiply(hm, sm), vm).filter(ImageFilter.GaussianBlur(3))
+    return Image.composite(ImageEnhance.Color(im).enhance(amount), im, mask)
+
+
+def enhance(im, b=1.2, c=1.05, s=1.32, red=True):
+    """明るさ・コントラスト・彩度を上げて、鮮やかにする。red=True で赤い部分（肉・赤身）はさらに赤みを強調"""
     im = ImageEnhance.Brightness(im).enhance(b)
     im = ImageEnhance.Contrast(im).enhance(c)
     im = ImageEnhance.Color(im).enhance(s)
+    if red:
+        im = red_boost(im)
     return im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=40, threshold=3))
 
 
@@ -102,7 +115,7 @@ def plate_box(im):
     return (x1 - x0) * s, (x0 + x1) / 2 * s, (y0 + y1) / 2 * s
 
 
-def sushi_square(im, fill=0.86, target_luma=150):
+def sushi_square(im, fill=0.86, target_luma=162):
     """皿の大きさ・位置・明るさを全写真で揃えた正方形に切り抜く（高さ・背景の見え方を統一）"""
     pw, cx, cy = plate_box(im)
     side = int(min(pw / fill, im.width, im.height))
@@ -114,7 +127,7 @@ def sushi_square(im, fill=0.86, target_luma=150):
     return ImageEnhance.Brightness(sq).enhance(k)
 
 
-def sushi_portrait(im, fill=1.22, target_luma=150):
+def sushi_portrait(im, fill=1.22, target_luma=162):
     """握りをアップにした縦長(3:4)の切り抜き。皿の大きさ・位置・明るさをそろえ、切り替えても目線が動かない"""
     pw, cx, cy = plate_box(im)
     w = int(min(pw / fill, im.width, im.height * 3 / 4))
@@ -147,6 +160,6 @@ if __name__ == "__main__":
     print("nigiri", len(NIGIRI))
     # サイトの背景（お店の外観・内装）。文字が読めるよう、CSS側で生成り色の膜を重ねる
     for name, num in BG:
-        im = enhance(load(num), b=1.04, c=1.0, s=1.0)
+        im = enhance(load(num), b=1.04, c=1.0, s=1.0, red=False)
         save(im, f"bg/{name}.webp", 1100, q=70)
     print("bg", len(BG))
