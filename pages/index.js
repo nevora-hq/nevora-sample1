@@ -83,7 +83,7 @@ export default function Home({ jsonLd }) {
 
         {/* 横長の写真（lib/siteConfig.js の IMAGES.strip。仮の写真） */}
         <div className="home-strip">
-          <Photo base={IMAGES.strip} widths={[640, 834]} />
+          <Photo base={IMAGES.strip} widths={[640, 1000]} />
         </div>
 
         {/* ---- お品書き（おつまみコースを主役に） ---- */}
