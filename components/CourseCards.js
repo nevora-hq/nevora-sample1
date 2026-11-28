@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { COURSES, COURSE_FLOW } from "../lib/siteConfig";
+import { COURSES, COURSE_FLOW, VARIES_NOTE } from "../lib/siteConfig";
 import MobileSlider from "./MobileSlider";
 
 // スマホのタブボタン用の短い名前
@@ -44,6 +44,7 @@ export default function CourseCards({ group = "regular", withCta = false, compac
             </p>
           </header>
           <p className="course-card-lead">{course.lead}</p>
+          {course.varies && <p className="course-card-varies">{VARIES_NOTE}</p>}
           {!compact && course.mainIngredients && (
             <p className="course-card-duration">主要食材：{course.mainIngredients}</p>
           )}

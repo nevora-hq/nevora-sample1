@@ -11,6 +11,7 @@ import {
   MENU_NOTE,
   COURSE_GROUPS,
   ALACARTE,
+  VARIES_NOTE,
 } from "../lib/siteConfig";
 import { buildBreadcrumbJsonLd } from "../lib/structuredData";
 
@@ -69,8 +70,10 @@ export default function Menu({ jsonLd }) {
           <h2 className="section-title">{ALACARTE.title}</h2>
           <MenuSlider kind="sushi" label="単品の握り寿司の写真" />
           <h3 className="home-subtitle">大将おまかせ（料理の例）</h3>
+          <p className="menu-varies">{VARIES_NOTE}写真は一例です。</p>
           <MenuSlider kind="omakase" label="大将おまかせの料理の例の写真" />
           <h3 className="home-subtitle">大将おまかせプレミアム（料理の例）</h3>
+          <p className="menu-varies">{VARIES_NOTE}写真は一例です。</p>
           <MenuSlider kind="premium" label="大将おまかせプレミアムの料理の例の写真" />
           <AlaCarte />
         </div>

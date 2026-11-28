@@ -3334,3 +3334,17 @@ h4.drink-group-title {
   color: #fff;
   pointer-events: none;
 }
+
+/* ---- 日によってお料理が変わる旨の注記 ---- */
+.course-card-varies,
+.menu-varies {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.menu-varies {
+  margin: -8px 0 14px;
+}
