@@ -26,13 +26,18 @@ def enhance(im, b=1.06, c=1.06, s=1.10):
     return im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=40, threshold=3))
 
 
-def crop_ratio(im, ratio, cx=0.5, cy=0.5):
+# 切り替え写真は、器の中心と大きさをそろえて、切り替えたときに目線が動かないようにする（拡大率）
+ZOOM = {"intro/intro-02": 1.04, "intro/intro-02-c": 1.28, "intro/intro-02-e": 1.25}
+
+
+def crop_ratio(im, ratio, cx=0.5, cy=0.5, zoom=1.0):
     """ratio=幅/高さ。(cx,cy)=切り抜き中心の相対位置"""
     w, h = im.size
     if w / h > ratio:
         nw, nh = int(h * ratio), h
     else:
         nw, nh = w, int(w / ratio)
+    nw, nh = int(nw / zoom), int(nh / zoom)
     x = min(max(int(cx * w - nw / 2), 0), w - nw)
     y = min(max(int(cy * h - nh / 2), 0), h - nh)
     return im.crop((x, y, x + nw, y + nh))
@@ -49,13 +54,12 @@ def save(im, path, width, q=82):
 # (出力ベース, 元写真, 縦横比, 切り抜き中心x, y, 書き出し幅[最初が本体])
 JOBS = [
     ("hero/home-hero", "85696721", 3 / 2, 0.5, 0.55, [1024, 640]),  # 全体の盛り合わせ
-    # 四季の前菜の切り替え写真。縦長(3:4)のまま、器の全体が見えるように切り抜かない
-    ("intro/intro-02", "85696537", 3 / 4, 0.5, 0.5, [720, 480]),    # 籠盛り（斜めからで立体感）
+    # 四季の前菜の切り替え写真。縦長(3:4)で器の全体が見えるようにし、器の中心・大きさをそろえる
+    ("intro/intro-02", "85696537", 3 / 4, 0.52, 0.54, [720, 480]),    # 籠盛り（斜めからで立体感）
     ("intro/intro-02-b", "85688393", 3 / 4, 0.5, 0.5, [720, 480]),  # 水色の角皿
-    ("intro/intro-02-c", "85688401", 3 / 4, 0.5, 0.5, [720, 480]),  # 灰色の丸皿
-    ("intro/intro-02-d", "85688381", 3 / 4, 0.5, 0.5, [720, 480]),  # 金色の三日月の器（全体）
+    ("intro/intro-02-c", "85688401", 3 / 4, 0.467, 0.495, [720, 480]),  # 灰色の丸皿
     ("intro/intro-02-f", "85688378", 3 / 4, 0.5, 0.5, [720, 480]),  # 金色の三日月の器（斜めに寄った写真）
-    ("intro/intro-02-e", "85696563", 3 / 4, 0.5, 0.5, [720, 480]),  # 花形の小鉢
+    ("intro/intro-02-e", "85696563", 3 / 4, 0.458, 0.50, [720, 480]),  # 花形の小鉢
     ("intro/intro-03", "85696617", 4 / 3, 0.5, 0.52, [870, 640]),   # 握り
     ("band/strip-01", "85688384", 2.4, 0.5, 0.52, [1000, 640]),  # 横長の帯（おつまみ三種）
 ]
@@ -100,7 +104,7 @@ def sushi_square(im, fill=0.86, target_luma=150):
 
 if __name__ == "__main__":
     for base, num, ratio, cx, cy, widths in JOBS:
-        im = enhance(crop_ratio(load(num), ratio, cx, cy))
+        im = enhance(crop_ratio(load(num), ratio, cx, cy, ZOOM.get(base, 1.0)))
         save(im, f"{base}.webp", widths[0])
         for w in widths:
             save(im, f"{base}-{w}.webp", w)
