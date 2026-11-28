@@ -67,6 +67,7 @@ export default function Menu({ jsonLd }) {
       <section className="home-stripe home-zone-4" id="alacarte">
         <div className="container container--wide">
           <h2 className="section-title">{ALACARTE.title}</h2>
+          <MenuSlider kind="sushi" label="単品の握り寿司の写真" />
           <AlaCarte />
         </div>
       </section>
