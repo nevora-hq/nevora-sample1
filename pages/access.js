@@ -29,21 +29,21 @@ export default function Access({ jsonLd }) {
       fullWidth
       jsonLd={jsonLd}
     >
-      <section className="home-stripe home-zone-4">
+      <section className="home-stripe home-zone-4 home-zone--interior">
         <div className="container container--wide">
           <h1 className="page-title">店舗情報</h1>
           <StoreInfo />
         </div>
       </section>
 
-      <section className="home-stripe home-zone-1">
+      <section className="home-stripe home-zone-1 home-zone--interior">
         <div className="container container--wide">
           <h2 className="section-title">Instagram</h2>
           <InstagramEmbed />
         </div>
       </section>
 
-      <div className="home-zone-5">
+      <div className="home-zone-5 home-zone--interior">
         <Cta />
       </div>
     </Layout>

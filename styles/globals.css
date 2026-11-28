@@ -2578,11 +2578,16 @@ h4.drink-group-title {
    ①紹介 ②お品書き ③期間限定・お飲み物 ④店舗情報 ⑤Instagram以下 */
 /* 各ゾーンの背景は、お店の外観・内装の写真（public/images/bg/）に生成り色の膜を重ねたもの。
    膜の濃さ（0.74〜0.8）を下げると写真がはっきり見えるが、文字は読みにくくなる。 */
-.home-zone-1 { background: linear-gradient(rgba(255, 226, 184, 0.76), rgba(255, 226, 184, 0.76)), url("/images/bg/exterior-2.webp") center / cover fixed; }
-.home-zone-2 { background: linear-gradient(rgba(255, 243, 224, 0.8), rgba(255, 243, 224, 0.8)), url("/images/bg/interior-1.webp") center / cover fixed; }
-.home-zone-3 { background: linear-gradient(rgba(252, 214, 164, 0.76), rgba(252, 214, 164, 0.76)), url("/images/bg/exterior-1.webp") center / cover fixed; }
-.home-zone-4 { background: linear-gradient(rgba(255, 238, 214, 0.8), rgba(255, 238, 214, 0.8)), url("/images/bg/interior-1.webp") center / cover fixed; }
-.home-zone-5 { background: linear-gradient(rgba(249, 207, 156, 0.76), rgba(249, 207, 156, 0.76)), url("/images/bg/exterior-2.webp") center / cover fixed; }
+.home-zone-1 { --veil: rgba(255, 226, 184, 0.76); --zone-img: url("/images/bg/exterior-2.webp"); }
+.home-zone-2 { --veil: rgba(255, 243, 224, 0.8); --zone-img: url("/images/bg/interior-1.webp"); }
+.home-zone-3 { --veil: rgba(252, 214, 164, 0.76); --zone-img: url("/images/bg/exterior-1.webp"); }
+.home-zone-4 { --veil: rgba(255, 238, 214, 0.8); --zone-img: url("/images/bg/interior-1.webp"); }
+.home-zone-5 { --veil: rgba(249, 207, 156, 0.76); --zone-img: url("/images/bg/exterior-2.webp"); }
+/* お品書き・店舗情報ページは、すべて内装写真にそろえる（pagesで home-zone--interior を付ける） */
+.home-zone--interior { --zone-img: url("/images/bg/interior-1.webp"); }
+.home-zone-1, .home-zone-2, .home-zone-3, .home-zone-4, .home-zone-5 {
+  background: linear-gradient(var(--veil), var(--veil)), var(--zone-img) center / cover fixed;
+}
 
 /* スマホ・タブレットでは固定背景が重く、効かない端末もあるため、通常のスクロール背景にする */
 @media (max-width: 900px) {

@@ -38,7 +38,7 @@ export default function Menu({ jsonLd }) {
       jsonLd={jsonLd}
     >
       {/* トップページと同じく、項目ごとに背景色の違う帯を縦に積む */}
-      <section className="home-stripe home-zone-2" id="course">
+      <section className="home-stripe home-zone-2 home-zone--interior" id="course">
         <div className="container container--wide">
           <h1 className="page-title">お品書き</h1>
           <p className="page-lead">
@@ -54,7 +54,7 @@ export default function Menu({ jsonLd }) {
         </div>
       </section>
 
-      <section className="home-stripe home-zone-3" id="seasonal">
+      <section className="home-stripe home-zone-3 home-zone--interior" id="seasonal">
         <div className="container container--wide">
           <h2 className="section-title">
             {COURSE_GROUPS.seasonal.title}
@@ -64,7 +64,7 @@ export default function Menu({ jsonLd }) {
         </div>
       </section>
 
-      <section className="home-stripe home-zone-4" id="alacarte">
+      <section className="home-stripe home-zone-4 home-zone--interior" id="alacarte">
         <div className="container container--wide">
           <h2 className="section-title">{ALACARTE.title}</h2>
           <MenuSlider kind="sushi" label="単品の握り寿司の写真" />
@@ -72,14 +72,14 @@ export default function Menu({ jsonLd }) {
         </div>
       </section>
 
-      <section className="home-stripe home-zone-1" id="drink">
+      <section className="home-stripe home-zone-1 home-zone--interior" id="drink">
         <div className="container container--wide">
           <MenuSlider kind="drink" label="お酒メニューの画像" />
           <DrinksMenu />
         </div>
       </section>
 
-      <div className="home-zone-5">
+      <div className="home-zone-5 home-zone--interior">
         <Cta
           title="ご予約・ご相談"
           lead="コースのご相談もお電話にてお気軽にどうぞ。"
