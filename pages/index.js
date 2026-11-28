@@ -68,7 +68,7 @@ export default function Home({ jsonLd }) {
               <div key={paragraph} className={`intro-row${i % 2 === 1 ? " intro-row--reverse" : ""}`}>
                 <div className={`intro-photo intro-photo--side${Array.isArray(IMAGES.introSide[i]) ? " intro-photo--tall" : ""}`}>
                   {Array.isArray(IMAGES.introSide[i]) ? (
-                    <PhotoCarousel bases={IMAGES.introSide[i]} label="四季の前菜の写真" />
+                    <PhotoCarousel bases={IMAGES.introSide[i]} label={i === 0 ? "四季の前菜の写真" : "握りの写真"} />
                   ) : (
                     <Photo
                       base={IMAGES.introSide[i]}
@@ -88,7 +88,7 @@ export default function Home({ jsonLd }) {
 
         {/* 横長の写真（lib/siteConfig.js の IMAGES.strip。仮の写真） */}
         <div className="home-strip">
-          <Photo base={IMAGES.strip} widths={[640, 1000]} />
+          <Photo base={IMAGES.strip} widths={[640, 1024, 1600]} />
         </div>
 
         {/* ---- お品書き（おつまみコースを主役に） ---- */}

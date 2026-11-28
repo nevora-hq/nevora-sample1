@@ -60,8 +60,7 @@ JOBS = [
     ("intro/intro-02-c", "85688401", 3 / 4, 0.467, 0.495, [720, 480]),  # 灰色の丸皿
     ("intro/intro-02-f", "85688378", 3 / 4, 0.5, 0.5, [720, 480]),  # 金色の三日月の器（斜めに寄った写真）
     ("intro/intro-02-e", "85696563", 3 / 4, 0.458, 0.50, [720, 480]),  # 花形の小鉢
-    ("intro/intro-03", "85696617", 4 / 3, 0.5, 0.52, [870, 640]),   # 握り
-    ("band/strip-01", "85688384", 2.4, 0.5, 0.52, [1000, 640]),  # 横長の帯（おつまみ三種）
+    ("band/strip-01", "85688384", 2.8, 0.5, 0.52, [1600, 1024, 640]),  # 横長の帯（おつまみ三種）
 ]
 # 単品の寿司（メニューの横スライド）。並び順＝掲載順
 SUSHI = ["85696611", "85696670", "85696616", "85696617", "85696621", "85696628", "85696630",
@@ -69,6 +68,10 @@ SUSHI = ["85696611", "85696670", "85696616", "85696617", "85696621", "85696628",
 
 # 背景用: (出力名, 元写真)  外観2種・店内1種
 BG = [("exterior-2", "85696727"), ("interior-1", "85696600")]
+
+# 「熟成と赤酢のシャリ」の切り替え写真（握り）。大トロ→…の順
+NIGIRI = ["85696617", "85696616", "85696621", "85696611", "85696670", "85696628", "85696630",
+          "85696660", "85696680", "85696682", "85696632", "85696633", "85696708"]
 
 
 def plate_box(im):
@@ -102,6 +105,19 @@ def sushi_square(im, fill=0.86, target_luma=150):
     return ImageEnhance.Brightness(sq).enhance(k)
 
 
+def sushi_portrait(im, fill=0.86, target_luma=150):
+    """皿の大きさ・位置・明るさをそろえた縦長(3:4)の切り抜き。切り替えても目線が動かない"""
+    pw, cx, cy = plate_box(im)
+    w = int(min(pw / fill, im.width, im.height * 3 / 4))
+    h = int(w * 4 / 3)
+    x = min(max(int(cx - w / 2), 0), im.width - w)
+    y = min(max(int(cy - h * 0.5), 0), im.height - h)
+    cr = im.crop((x, y, x + w, y + h))
+    luma = sum(ImageOps.grayscale(cr.resize((64, 64))).tobytes()) / 4096
+    k = min(max(target_luma / luma, 0.9), 1.15)
+    return ImageEnhance.Brightness(cr).enhance(k)
+
+
 if __name__ == "__main__":
     for base, num, ratio, cx, cy, widths in JOBS:
         im = enhance(crop_ratio(load(num), ratio, cx, cy, ZOOM.get(base, 1.0)))
@@ -113,6 +129,12 @@ if __name__ == "__main__":
         im = enhance(sushi_square(load(num)))
         save(im, f"menu/sushi-{i:02d}.webp", 900, q=80)
     print("sushi", len(SUSHI))
+    for i, num in enumerate(NIGIRI, 1):
+        im = enhance(sushi_portrait(load(num)))
+        save(im, f"intro/nigiri-{i:02d}.webp", 720, q=80)
+        save(im, f"intro/nigiri-{i:02d}-480.webp", 480, q=80)
+        save(im, f"intro/nigiri-{i:02d}-720.webp", 720, q=80)
+    print("nigiri", len(NIGIRI))
     # サイトの背景（お店の外観・内装）。文字が読めるよう、CSS側で生成り色の膜を重ねる
     for name, num in BG:
         im = enhance(load(num), b=1.04, c=1.0, s=1.0)
