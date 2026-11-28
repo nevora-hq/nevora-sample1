@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import SmallParticles from "../components/SmallParticles";
 import Photo from "../components/Photo";
+import PhotoCarousel from "../components/PhotoCarousel";
 import SeasonalSlider from "../components/SeasonalSlider";
 import MenuSlider from "../components/MenuSlider";
 import CourseCards from "../components/CourseCards";
@@ -66,11 +67,15 @@ export default function Home({ jsonLd }) {
             {CONCEPT.body.slice(1).map((paragraph, i) => (
               <div key={paragraph} className={`intro-row${i % 2 === 1 ? " intro-row--reverse" : ""}`}>
                 <div className="intro-photo intro-photo--side">
-                  <Photo
-                    base={IMAGES.introSide[i]}
-                    widths={[640, 870]}
-                    label={`写真（${i === 0 ? "前菜・熟成魚" : "シャリ・握り"}）`}
-                  />
+                  {Array.isArray(IMAGES.introSide[i]) ? (
+                    <PhotoCarousel bases={IMAGES.introSide[i]} label="四季の前菜の写真" />
+                  ) : (
+                    <Photo
+                      base={IMAGES.introSide[i]}
+                      widths={[640, 870]}
+                      label={`写真（${i === 0 ? "前菜・熟成魚" : "シャリ・握り"}）`}
+                    />
+                  )}
                   <span className="intro-photo-tag" aria-hidden="true">
                     <SmallParticles text={i === 0 ? "四季の前菜" : "熟成と赤酢のシャリ"} />
                   </span>

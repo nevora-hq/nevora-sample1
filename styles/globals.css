@@ -3216,3 +3216,77 @@ h4.drink-group-title {
 .josi-small {
   font-size: 0.72em;
 }
+
+/* ---- 写真の切り替え（◀▶ボタン）。親の .intro-photo いっぱいに重ねて表示 ---- */
+.photo-carousel {
+  position: absolute;
+  inset: 0;
+}
+
+.photo-carousel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* スクロール出現(.reveal)の opacity より優先させる */
+  opacity: 0 !important;
+  transition: opacity 0.35s;
+}
+
+.photo-carousel img.is-active {
+  opacity: 1 !important;
+}
+
+.photo-carousel-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  border: 1px solid var(--color-primary);
+  border-radius: 50%;
+  background: rgba(255, 250, 241, 0.92);
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+}
+
+.photo-carousel-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.photo-carousel-btn--prev {
+  left: 8px;
+}
+
+.photo-carousel-btn--next {
+  right: 8px;
+}
+
+.photo-carousel-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.photo-carousel-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(60, 40, 20, 0.35);
+}
+
+.photo-carousel-dots span.is-active {
+  background: var(--color-primary);
+}
