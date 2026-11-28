@@ -5,6 +5,7 @@ import AlaCarte from "../components/AlaCarte";
 import DrinksMenu from "../components/DrinksMenu";
 import SeasonalSlider from "../components/SeasonalSlider";
 import MenuSlider from "../components/MenuSlider";
+import FoodGallery from "../components/FoodGallery";
 import {
   SITE,
   MENU_GUIDE,
@@ -69,6 +70,8 @@ export default function Menu({ jsonLd }) {
           <h2 className="section-title">{ALACARTE.title}</h2>
           <MenuSlider kind="sushi" label="単品の握り寿司の写真" />
           <AlaCarte />
+          <h3 className="home-subtitle">お料理の写真</h3>
+          <FoodGallery />
         </div>
       </section>
 
