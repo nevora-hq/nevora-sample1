@@ -3301,3 +3301,36 @@ h4.drink-group-title {
     flex-basis: 38%;
   }
 }
+
+/* ---- 切り替え写真をクリックで拡大 ---- */
+.photo-carousel-open {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* 写真の上、◀▶ボタン・丸印・見出しの下 */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.intro-photo-tag {
+  pointer-events: none; /* 見出しの上をクリックしても拡大できるように */
+}
+
+.photo-lightbox .menu-lightbox-img {
+  max-height: calc(100vh - 88px);
+}
+
+.photo-lightbox-count {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: #fff;
+  pointer-events: none;
+}
