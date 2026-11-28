@@ -25,8 +25,7 @@ export default function Layout({
   fullWidth = false,
   canonicalPath = "",
   ogType = "website",
-  // 公開前の仮設定: 現在は prop の値に関係なく常に noindex を出力する（下記 Head 参照）。
-  noindex = true,
+  noindex = false,
   jsonLd = [],
 }) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
@@ -43,11 +42,7 @@ export default function Layout({
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* TODO: 公開前の仮設定。公開してよい状態になったら
-            この2行を削除し、{noindex && <meta name="robots" content="noindex, nofollow" />} に戻す。
-            あわせて scripts/generate-seo-files.js の robots.txt / sitemap も通常運用に戻すこと。 */}
-        <meta name="robots" content="noindex, nofollow" />
-        <meta name="googlebot" content="noindex, nofollow" />
+        {noindex && <meta name="robots" content="noindex, nofollow" />}
         {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
         <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:locale" content="ja_JP" />

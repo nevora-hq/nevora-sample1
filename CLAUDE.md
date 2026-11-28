@@ -31,8 +31,7 @@ Next.js (Pages Router) + React / プレーンCSS / 静的エクスポート（`o
 - **ご予約は電話のみ。** フォーム・メールでの受付は設けない
 - 写真は `lib/siteConfig.js` の `IMAGES` にパスを入れると差し替わる（空のあいだは仮表示の枠）
 - `npm run build` は環境変数 `NEXT_PUBLIC_SITE_URL` が未設定だとエラーになる（`.env.local` で用意する）
-- **公開前の仮設定：** 全ページ noindex（`components/Layout.js`）・robots.txt は全 Disallow（`scripts/generate-seo-files.js`）。
-  公開してよい状態になった時点で、両方を通常運用に戻す
+- **検索エンジンへの公開（2026-11-28 から通常運用）：** noindex は外し、robots.txt は全許可、sitemap.xml も生成する（`scripts/generate-seo-files.js`）。公開URLは `https://sushi-sho.jp` のみ（`NEXT_PUBLIC_SITE_URL`）
 - git の remote 設定・push・デプロイは、依頼があるまで行わない
 
 ## 出力ルール
