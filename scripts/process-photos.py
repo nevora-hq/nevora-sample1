@@ -29,13 +29,37 @@ def red_boost(im, amount=1.9):
     return Image.composite(ImageEnhance.Color(im).enhance(amount), im, mask)
 
 
-def enhance(im, b=1.2, c=1.05, s=1.32, red=True):
-    """明るさ・コントラスト・彩度を上げて、鮮やかにする。red=True で赤い部分（肉・赤身）はさらに赤みを強調"""
-    im = ImageEnhance.Brightness(im).enhance(b)
+def _mean_v(im):
+    sm = im.resize((64, max(1, round(64 * im.height / im.width))))
+    return sum(sm.convert("HSV").split()[2].tobytes()) / (sm.width * sm.height)
+
+
+def _vivid_frac(im, thr=200):
+    """彩度が非常に高い（ぎらつく）画素の割合"""
+    sm = im.resize((96, max(1, round(96 * im.height / im.width))))
+    data = sm.convert("HSV").split()[1].tobytes()
+    return sum(1 for x in data if x >= thr) / len(data)
+
+
+def enhance(im, s=1.28, c=1.04, red=True, target_v=186):
+    """明るく鮮やかにする（写真ごとに強さを自動調整して、白飛び・ぎらつきを防ぐ）
+    ・明るさ … 中間調を持ち上げる（ガンマ補正）。もともと明るい写真は持ち上げを控え、白飛びさせない
+    ・彩度   … s 倍まで。色がぎらつく画素が増える写真は、段階的に弱める
+    ・赤みが強い部分（肉・マグロの赤身）は、さらに赤みを強調"""
+    import math
+    mv = max(_mean_v(im), 1)
+    g = min(max(math.log(target_v / 255) / math.log(mv / 255), 1.0), 1.35)
+    lut = [round(255 * ((i / 255) ** (1 / g))) for i in range(256)]
+    im = im.point(lut * 3)
     im = ImageEnhance.Contrast(im).enhance(c)
-    im = ImageEnhance.Color(im).enhance(s)
+    cand = im
+    for sat in [s - 0.04 * k for k in range(0, 6)]:
+        cand = ImageEnhance.Color(im).enhance(sat)
+        if _vivid_frac(cand) <= 0.045:
+            break
+    im = cand
     if red:
-        im = red_boost(im)
+        im = red_boost(im, 1.7)
     return im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=40, threshold=3))
 
 
@@ -160,6 +184,6 @@ if __name__ == "__main__":
     print("nigiri", len(NIGIRI))
     # サイトの背景（お店の外観・内装）。文字が読めるよう、CSS側で生成り色の膜を重ねる
     for name, num in BG:
-        im = enhance(load(num), b=1.04, c=1.0, s=1.0, red=False)
+        im = ImageEnhance.Brightness(load(num)).enhance(1.04)
         save(im, f"bg/{name}.webp", 1100, q=70)
     print("bg", len(BG))
