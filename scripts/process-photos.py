@@ -57,6 +57,41 @@ JOBS = [
 SUSHI = ["85696611", "85696670", "85696616", "85696617", "85696621", "85696628", "85696630",
          "85696660", "85696680", "85696682", "85696632", "85696633", "85696708"]
 
+# 背景用: (出力名, 元写真)  外観2種・店内1種
+BG = [("exterior-1", "85696726"), ("exterior-2", "85696727"), ("interior-1", "85696600")]
+
+
+def plate_box(im):
+    """緑の皿の外接矩形(幅, 中心x, 中心y)を返す。縮小画像で緑の画素を数えて求める"""
+    s = im.width / 200
+    sm = im.resize((200, round(im.height / s)))
+    px = sm.load()
+    xs, ys = [], []
+    for y in range(sm.height):
+        for x in range(sm.width):
+            r, g, b = px[x, y]
+            if g > r * 1.25 and g > b * 1.05 and g < 160:
+                xs.append(x)
+                ys.append(y)
+    xs.sort()
+    ys.sort()
+    k = len(xs) // 200
+    x0, x1, y0, y1 = xs[k], xs[-1 - k], ys[k], ys[-1 - k]
+    return (x1 - x0) * s, (x0 + x1) / 2 * s, (y0 + y1) / 2 * s
+
+
+def sushi_square(im, fill=0.86, target_luma=150):
+    """皿の大きさ・位置・明るさを全写真で揃えた正方形に切り抜く（高さ・背景の見え方を統一）"""
+    pw, cx, cy = plate_box(im)
+    side = int(min(pw / fill, im.width, im.height))
+    x = min(max(int(cx - side / 2), 0), im.width - side)
+    y = min(max(int(cy - side * 0.52), 0), im.height - side)
+    sq = im.crop((x, y, x + side, y + side))
+    luma = sum(ImageOps.grayscale(sq.resize((64, 64))).tobytes()) / 4096
+    k = min(max(target_luma / luma, 0.9), 1.15)
+    return ImageEnhance.Brightness(sq).enhance(k)
+
+
 if __name__ == "__main__":
     for base, num, ratio, cx, cy, widths in JOBS:
         im = enhance(crop_ratio(load(num), ratio, cx, cy))
@@ -65,6 +100,11 @@ if __name__ == "__main__":
             save(im, f"{base}-{w}.webp", w)
         print(base, im.size)
     for i, num in enumerate(SUSHI, 1):
-        im = enhance(load(num))
+        im = enhance(sushi_square(load(num)))
         save(im, f"menu/sushi-{i:02d}.webp", 900, q=80)
     print("sushi", len(SUSHI))
+    # サイトの背景（お店の外観・内装）。文字が読めるよう、CSS側で生成り色の膜を重ねる
+    for name, num in BG:
+        im = enhance(load(num), b=1.04, c=1.0, s=1.0)
+        save(im, f"bg/{name}.webp", 1100, q=70)
+    print("bg", len(BG))
